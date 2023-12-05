@@ -14,9 +14,35 @@ def get_cost_matrix():
     cost_matrix = [[100, 75, 50, 100] for row in range(12)]
     return cost_matrix
 
-def get_seats():
+def calculate_total_sales(seats_array, cost_matrix):
+    total_sales = 0
+    for i in range(len(seats_array)):
+        for j in range(len(seats_array[i])):
+            if seats_array[i][j] == 'X':
+                total_sales += cost_matrix[i][j]
+    return total_sales
 
-    return ['O', 'X', 'O', 'X']
+def get_seats():
+    #Initialize the seats as a 2D array with 4 columns and 12 rows
+    seats = [['O' for _ in range(4)] for _ in range(12)]
+
+    #Read reservations from reservations.txt and update the seats array
+    with open('data/reservations.txt', 'r') as file:
+        for line in file:
+            name, row, column, code = line.strip().split(', ')
+            row, column = int(row), int(column)
+
+            #Mark the seat as bought in the seats array
+            seats[row][column] = 'X'
+
+    return seats
+
+#Example usage:
+#seats_array = get_seats()
+
+#Display the seats array
+#for row in seats_array:
+    #print(row)
 
 def write_to_file(data_array, file_path):
 

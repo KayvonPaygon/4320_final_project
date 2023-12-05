@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+from methods import *
 
 app = Flask(__name__)
 
@@ -8,7 +9,13 @@ def home():
 
 @app.route('/admin')
 def admin():
-    return render_template('admin.html')
+    seats_array = get_seats()
+    cost_matrix = get_cost_matrix()
+    total_sales = calculate_total_sales(seats_array, cost_matrix)
+
+    header = "Administrator Login"
+    subheader = "Printing Seating Chart"
+    return render_template('admin.html', header=header, subheader=subheader, seats_array=seats_array, total_sales=total_sales)
 
 @app.route('/reservations')
 def reservations():
