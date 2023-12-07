@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <style>
+        h1 {
+            text-align: center;
+        }
+        body {
+            text-align: center;
+        }
+        nav a {
+            color: red;
+            font-size: xx-large;
+            text-decoration: none;
+            padding: 0 15px;
+        }
+
+        nav a.current {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/home">Home</a>
+        <a href="/">Admin</a>
+        <a href="/reservations">Reservations</a>
+    </nav>
+    <hr>
+    <h1>Administrator Login</h1>
+    <hr>
+    {% if error %}
+        <p style="color: red; text-align: center;">{{ error }}</p>
+    {% endif %}
+    <form method="post" action="{{ url_for('login') }}">
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username"><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password"><br><br>
+        <input type="submit" value="Login">
+    </form>
+</body>
+</html>
