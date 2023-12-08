@@ -13,6 +13,10 @@
     <title>{{ header }}</title>
 </head>
 <body>
+
+    <p>Congratulations {{ first_name }} {{ last_name }}! Row: {{ row }}, Seat {{ column }} is now reserved for you. Enjoy your trip!</p>
+    <p>Your e-ticket number is: {{ ticket_number }}</p>
+
     <h1>{{ header }}</h1>
     <h2>{{ subheader }}</h2>
     <h3>{{ seat_legend }}</h3>
@@ -35,6 +39,8 @@
             <br>
         {% endif %}
     {% endwith %}
+
+    
 
     <!-- Reservation Form -->
     <form action="/reservations" method="post">

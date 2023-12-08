@@ -32,9 +32,32 @@ def admin():
     
     return render_template('admin.html', header=header, subheader=subheader)
 
-@app.route('/reservations')
+@app.route('/reservations', methods=['GET', 'POST'])
 def reservations():
-    return render_template('reservations.html')
+    header = "Reserve Your Seat"
+    subheader = "Seating Chart"
+    seat_legend = "X = Reserved Seat | O = Available Seat"
+    seats_array = get_seats()
+    num_rows = len(seats_array)
+    num_seats = len(seats_array[0])
+
+    if request.method == 'POST':
+        first_name = request.form['first_name']
+        last_name = request.form['last_name']
+        selected_row = int(request.form['row'])
+        selected_column = int(request.form['seat'])
+
+
+        if seats_array[selected_row][selected_column] == 'O':
+            code = reserve_seat(selected_row, selected_column, first_name, last_name)
+
+            seats_array = get_seats()
+
+            return render_template('successfulReservation.html',first_name=first_name, last_name=last_name, row=selected_row, seat=selected_column, ticket_number=code,header=header, subheader=subheader, seat_legend=seat_legend, seats_array=seats_array, num_rows=num_rows, num_seats=num_seats)
+        
+        flash('Seat is not available.', 'error')
+
+    return render_template('reservations.html', header=header, subheader=subheader, seat_legend=seat_legend, seats_array=seats_array, num_rows=num_rows, num_seats=num_seats)
 
 if __name__ == '__main__':
     app.run(debug=True, port=5002)

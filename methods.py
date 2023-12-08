@@ -52,6 +52,34 @@ def check_credentials(username, password):
                 return True
     return False
 
-def write_to_file(data_array, file_path):
+def generate_code(first_name):
+    class_name = "INFOTC4320"
+    result = ""
+    len_name, len_class = len(first_name), len(class_name)
+    max_length = max(len_name, len_class)
 
-    return False
+    for i in range(max_length):
+        if i < len_name:
+            result += first_name[i]
+        if i < len_class:
+            result += class_name[i]
+
+    return result
+
+def reserve_seat(row, column, first_name, last_name):
+    code = generate_code(first_name)
+
+    data_array = [first_name, row, column, code]
+
+    write_to_file(data_array, 'data/reservations.txt')
+
+    return code
+
+
+
+def write_to_file(data_array, file_path):
+    line = ', '.join(map(str, data_array))
+    
+    # Write the line to the file
+    with open(file_path, 'a') as file:
+        file.write('\n' + line)
