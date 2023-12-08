@@ -3,6 +3,7 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
+
 <div class="content">
     <h1>IT-4320 Trip Reservation System</h1>
     <p>Welcome to the IT-4320 reservation system! Please use the dropdown box to choose whether to log in as an administrator or make a reservation.</p>
@@ -14,24 +15,27 @@
                 <option value="reserve">Reserve a Seat</option>
             </select>
         </div>
+        
         <br>
+        
         <input type="submit" value="Submit">
     </form>
 </div>
 
 <script>
-    var adminLink = "{{ url_for('admin') }}";
-    var reserveLink = "{{ url_for('reservations') }}";
+var adminLink = "{{ url_for('admin') }}";
+var reserveLink = "{{ url_for('reservations') }}";
 
-    document.getElementById('selection-form').onsubmit = function(event) {
-        event.preventDefault(); 
-        var choice = document.getElementById('choose-menu').value; 
+document.getElementById('selection-form').onsubmit = function(event) {
+    event.preventDefault(); 
+    var choice = document.getElementById('choose-menu').value; 
 
-        if(choice === 'admin') {
-            window.location.href = adminLink; 
-        } else if(choice === 'reserve') {
-            window.location.href = reserveLink; 
-        }
-    };
+    if(choice === 'admin') {
+        window.location.href = adminLink; 
+    } else if(choice === 'reserve') {
+        window.location.href = reserveLink; 
+    }
+};
 </script>
+
 {% endblock %}
