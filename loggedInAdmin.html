@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ header }}</title>
+</head>
+<body>
+    <h1>{{ header }}</h1>
+    <h2>{{ subheader }}</h2>
+
+    <table border="1">
+        {% for row in seats_array %}
+            <tr>
+                {% for seat in row %}
+                    <td>{{ seat }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+    <p>Total Sales: {{ total_sales }}</p>
+
+    <form action="/admin" method="post">
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username" required><br>
+
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password" required><br><br>
+
+        <input type="submit" value="Login">
+    </form>
+</body>
+</html>
+
+<script>
+    var adminLink = "{{ url_for('admin') }}";
+    var reserveLink = "{{ url_for('reservations') }}";
+    
+    document.getElementById('selection-form').onsubmit = function(event) {
+        event.preventDefault(); 
+        var choice = document.getElementById('choose-menu').value; 
+    
+        if(choice === 'admin') {
+            window.location.href = adminLink; 
+        } else if(choice === 'reserve') {
+            window.location.href = reserveLink; 
+        }
+    };
+</script>
+    
+{% endblock %}
