@@ -44,6 +44,14 @@ def get_seats():
 #for row in seats_array:
     #print(row)
 
+def check_credentials(username, password):
+    with open('data/passcodes.txt', 'r') as file:
+        for line in file:
+            stored_username, stored_password = line.strip().split(',')
+            if username == stored_username and password == stored_password:
+                return True
+    return False
+
 def write_to_file(data_array, file_path):
 
     return False

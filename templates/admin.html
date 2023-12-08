@@ -1,3 +1,9 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,18 +16,16 @@
     <h1>{{ header }}</h1>
     <h2>{{ subheader }}</h2>
 
-    <table border="1">
-        {% for row in seats_array %}
-            <tr>
-                {% for seat in row %}
-                    <td>{{ seat }}</td>
-                {% endfor %}
-            </tr>
-        {% endfor %}
-    </table>
-    <p>Total Sales: {{ total_sales }}</p>
-
-    <form action="/login" method="post">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="error-message">
+                {{ messages[0] }}
+            </div>
+            <br>
+        {% endif %}
+    {% endwith %}
+    
+    <form action="/admin" method="post">
         <label for="username">Username:</label><br>
         <input type="text" id="username" name="username" required><br>
 
@@ -32,3 +36,21 @@
     </form>
 </body>
 </html>
+
+<script>
+    var adminLink = "{{ url_for('admin') }}";
+    var reserveLink = "{{ url_for('reservations') }}";
+    
+    document.getElementById('selection-form').onsubmit = function(event) {
+        event.preventDefault(); 
+        var choice = document.getElementById('choose-menu').value; 
+    
+        if(choice === 'admin') {
+            window.location.href = adminLink; 
+        } else if(choice === 'reserve') {
+            window.location.href = reserveLink; 
+        }
+    };
+</script>
+    
+{% endblock %}
